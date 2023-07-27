@@ -3,6 +3,9 @@ import Navbar from "./Navbar";
 import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { Rating } from "@smastrom/react-rating";
+import Loading from "./Molecules/Loading";
+import Card from "./Molecules/Card";
+import Gmaps from "./Molecules/Gmaps";
 
 const Detail = () => {
   const { id } = useParams();
@@ -35,7 +38,7 @@ const Detail = () => {
           </p>
         </div>
         {loading ? (
-          "loading"
+          <Loading />
         ) : (
           <>
             <div className="max-w-[1100px] mx-auto h-full">
@@ -64,36 +67,17 @@ const Detail = () => {
                 {review?.map((datum) => {
                   return (
                     <div key={datum.id}>
-                      <img
-                        className="rounded-sm"
+                      <Card
                         src={datum.imgItemUrl}
-                        alt="img"
+                        nama={datum.namaItem}
+                        value={datum.ratingItem}
                       />
-                      <p className="py-2">{datum.namaItem}</p>
-                      <div className="flex">
-                        <p>{datum.rating}</p>
-                        <Rating
-                          style={{ maxWidth: 70 }}
-                          value={datum.ratingItem}
-                          readOnly
-                        />
-                      </div>
                       <div className="py-1">{datum.deskripsi}</div>
                     </div>
                   );
                 })}
               </div>
-              <div className="pt-8 pb-14">
-                <iframe
-                  src={data.koordinat}
-                  width="1100"
-                  height="300"
-                  style={{ border: 0 }}
-                  allowfullscreen=""
-                  loading="lazy"
-                  referrerpolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
+              <Gmaps koor={data.koordinat} />
             </div>
           </>
         )}

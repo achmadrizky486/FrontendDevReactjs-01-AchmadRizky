@@ -4,6 +4,11 @@ import axios from "axios";
 import { Rating } from "@smastrom/react-rating";
 import Navbar from "./Navbar";
 import { NavLink, useParams } from "react-router-dom";
+import { Audio } from "react-loader-spinner";
+import Loading from "./Molecules/Loading";
+import Button from "./Molecules/Button";
+import ButtonWhite from "./Molecules/ButtonWhite";
+import Card from "./Molecules/Card";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -12,6 +17,7 @@ const App = () => {
   const [sortPrice, setSortPrice] = useState("murah");
   const Change = (e) => {
     setSortPrice(e.target.value);
+    setLoading(true);
     console.log("cek data", sortPrice);
   };
 
@@ -29,7 +35,8 @@ const App = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [sortPrice]);
+
   return (
     <div>
       <Navbar />
@@ -52,11 +59,13 @@ const App = () => {
             </select>
           </div>
           <div className="w-fit px-3 border-b-2 my-auto">Categories</div>
-          <div className="ml-auto border px-5 py-1">Clear All</div>
+          <div className="ml-auto border px-5 py-1 hover:cursor-pointer">
+            Clear All
+          </div>
         </div>
       </div>
       {loading ? (
-        <h1>Loading</h1>
+        <Loading />
       ) : (
         <div>
           <div className="max-w-[1100px] mx-auto h-full">
@@ -75,16 +84,10 @@ const App = () => {
                 .map((datum) => {
                   return (
                     <div key={datum[1].id}>
-                      <img
-                        className="object-fill rounded-sm"
+                      <Card
                         src={datum[1].imageUrl}
-                        alt="img"
-                      />
-                      <p className="py-1">{datum[1].nama}</p>
-                      <Rating
-                        style={{ maxWidth: 70 }}
+                        nama={datum[1].nama}
                         value={datum[1].rating}
-                        readOnly
                       />
                       <div className="w-full flex">
                         <p className="max-w-[70px] text-[10px] overflow-clip">
@@ -106,17 +109,13 @@ const App = () => {
                         </div>
                       </div>
                       <NavLink to={`/detail/${datum[0]}`}>
-                        <div className="w-full h-[40px] bg-blue-900 text-white hover:bg-white hover:text-blue-900 hover:border hover:border-blue-900 hover:cursor-pointer text-xs mt-5 text-center flex items-center justify-center">
-                          LEARN MORE
-                        </div>
+                        <Button type="LEARN MORE" />
                       </NavLink>
                     </div>
                   );
                 })}
             </div>
-            <div className="w-[300px] h-[40px] text-blue-900 border border-blue-900 text-center flex items-center justify-center my-10 mx-auto hover:bg-blue-900 hover:text-white hover:cursor-pointer">
-              LOAD MORE
-            </div>
+            <ButtonWhite type="LOAD MORE" />
           </div>
         </div>
       )}
