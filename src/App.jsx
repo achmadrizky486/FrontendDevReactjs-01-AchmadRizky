@@ -28,8 +28,20 @@ const App = () => {
     <div>
       <Navbar />
       <div className="max-w-[1200px] border-b-2 mx-auto">
-        <div className="max-w-[1100px] mx-auto h-full">
-          <div className="py-3">Filter By :</div>
+        <div className="max-w-[1100px] mx-auto h-full flex py-3">
+          <div className="w-fit px-3 my-auto">Filter By :</div>
+          <div className="w-fit px-3 my-auto">
+            <input type="radio" name="is_open" id="" className="me-1" />
+            Open Now
+          </div>
+          <div className="w-fit px-3 me-5 border-b-2 my-auto">
+            <select name="Price" id="" className="w-full h-full">
+              <option value="murah">Termurah</option>
+              <option value="mahal">Termahal</option>
+            </select>
+          </div>
+          <div className="w-fit px-3 border-b-2 my-auto">Categories</div>
+          <div className="ml-auto border px-5 py-1">Clear All</div>
         </div>
       </div>
       {loading ? (

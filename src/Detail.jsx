@@ -1,6 +1,6 @@
 import React, { useEffect, useId, useState } from "react";
 import Navbar from "./Navbar";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import axios from "axios";
 import { Rating } from "@smastrom/react-rating";
 
@@ -30,7 +30,8 @@ const Detail = () => {
       <div className="max-w-[1200px] mx-auto">
         <div className="max-w-[1100px] mx-auto h-full py-7">
           <p className="text-xs">
-            Restaurant {">"} {data.nama}
+            <NavLink to="/">All Restaurants </NavLink>
+            {">"} {data.nama}
           </p>
         </div>
         {loading ? (
@@ -47,11 +48,11 @@ const Detail = () => {
                   />
                 </div>
                 <div>
-                  <p>{data.nama}</p>
-                  <div className="flex">
-                    <p>{data.rating}</p>
+                  <p className="text-4xl font-semibold pb-5">{data.nama}</p>
+                  <div className="flex my-auto items-center text-center">
+                    <p className="text-xl font-semibold pe-3">{data.rating}</p>
                     <Rating
-                      style={{ maxWidth: 70 }}
+                      style={{ maxWidth: 100 }}
                       value={data.rating}
                       readOnly
                     />
