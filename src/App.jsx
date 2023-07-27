@@ -1,10 +1,8 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Rating } from "@smastrom/react-rating";
 import Navbar from "./Navbar";
 import { NavLink, useParams } from "react-router-dom";
-import { Audio } from "react-loader-spinner";
 import Loading from "./Molecules/Loading";
 import Button from "./Molecules/Button";
 import ButtonWhite from "./Molecules/ButtonWhite";
@@ -12,13 +10,12 @@ import Card from "./Molecules/Card";
 
 const App = () => {
   const [data, setData] = useState([]);
-  const [dataKey, setDataKey] = useState([]);
+  const [result, setResult] = useState([]);
   const [loading, setLoading] = useState(true);
   const [sortPrice, setSortPrice] = useState("murah");
   const Change = (e) => {
     setSortPrice(e.target.value);
     setLoading(true);
-    console.log("cek data", sortPrice);
   };
 
   useEffect(() => {
@@ -30,6 +27,12 @@ const App = () => {
         const output = Object.entries(res.data);
         const result = Object.values(res.data).flat();
         setData(output);
+
+        setResult(Object.entries(result));
+        // setResult(result.shift());
+        setResult(result);
+        // console.log(result);
+
         setLoading(false);
       })
       .catch((err) => {
@@ -58,7 +61,29 @@ const App = () => {
               <option value="mahal">Termahal</option>
             </select>
           </div>
-          <div className="w-fit px-3 border-b-2 my-auto">Categories</div>
+          <div className="w-fit px-3 border-b-2 my-auto">
+            <select
+              name="price"
+              id=""
+              className="w-full h-full"
+              defaultValue={"default"}
+              // onChange={tes}
+            >
+              <option value="default" disabled>
+                Kategori
+              </option>
+              {result.map((hasil) => {
+                return (
+                  <>
+                    <option key={hasil.id} value={hasil.kategori}>
+                      {hasil.kategori}
+                    </option>
+                    ;
+                  </>
+                );
+              })}
+            </select>
+          </div>
           <div className="ml-auto border px-5 py-1 hover:cursor-pointer">
             Clear All
           </div>
