@@ -8,7 +8,7 @@ const Navbar = () => {
     <div className="max-w-[1200px] border-b-2 mx-auto">
       <div className="max-w-[1100px] mx-auto flex flex-col justify-center h-full">
         <NavLink to="/">
-          <p className="py-5 text-[30pt]">Restaurants</p>
+          <p className="pt-5 text-[30pt]">Restaurants</p>
         </NavLink>
         <p className="w-[600px] py-5">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni ab
