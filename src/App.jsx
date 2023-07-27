@@ -2,6 +2,8 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Rating } from "@smastrom/react-rating";
+import Navbar from "./Navbar";
+import { NavLink, useParams } from "react-router-dom";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -21,8 +23,10 @@ const App = () => {
         console.log(err);
       });
   }, []);
+  console.log(data);
   return (
     <div>
+      <Navbar />
       <div className="max-w-[1200px] border-b-2 mx-auto">
         <div className="max-w-[1100px] mx-auto h-full">
           <div className="py-3">Filter By :</div>
@@ -56,7 +60,7 @@ const App = () => {
                       <p className="pl-1 text-[10px]">
                         • Rp {datum[1].price} an
                       </p>
-                      <p className="ml-auto text-[10px]">
+                      <div className="ml-auto text-[10px]">
                         {datum[1].isOpen ? (
                           <div>
                             <span className="text-green-500">•</span> OPEN NOW
@@ -66,11 +70,13 @@ const App = () => {
                             <span className="text-red-500">•</span> CLOSE
                           </div>
                         )}
-                      </p>
+                      </div>
                     </div>
-                    <div className="w-full h-[40px] bg-blue-900 text-white hover:bg-white hover:text-blue-900 hover:border hover:border-blue-900 hover:cursor-pointer text-xs mt-5 text-center flex items-center justify-center">
-                      LEARN MORE
-                    </div>
+                    <NavLink to={`/detail/${datum[0]}`}>
+                      <div className="w-full h-[40px] bg-blue-900 text-white hover:bg-white hover:text-blue-900 hover:border hover:border-blue-900 hover:cursor-pointer text-xs mt-5 text-center flex items-center justify-center">
+                        LEARN MORE
+                      </div>
+                    </NavLink>
                   </div>
                 );
               })}
